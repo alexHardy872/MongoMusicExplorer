@@ -10,6 +10,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MongoMusicExplorer.Models;
+using Microsoft.Extensions.Options;
+using MongoMusicExplorer.Services;
 
 namespace MongoMusicExplorer
 {
@@ -25,6 +28,15 @@ namespace MongoMusicExplorer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // requires using Microsoft.Extensions.Options
+            services.Configure<MusicDatabaseSettings>(
+                Configuration.GetSection(nameof(MusicDatabaseSettings)));
+
+            services.AddSingleton<IMusicDatabaseSettings>(sp =>
+                sp.GetRequiredService<IOptions<MusicDatabaseSettings>>().Value);
+
+            services.AddSingleton<AlbumService>();
+
             services.AddControllers();
         }
 
