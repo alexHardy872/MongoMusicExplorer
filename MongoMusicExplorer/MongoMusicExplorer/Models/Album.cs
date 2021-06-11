@@ -13,7 +13,6 @@ namespace MongoMusicExplorer.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string _id { get; set; }
 
-        [BsonElement("Name")]
         public string artist { get; set; }
 
         public int year { get; set; }
@@ -24,7 +23,7 @@ namespace MongoMusicExplorer.Models
 
         public List<string> genre { get; set; }
 
-        public Uri imageUrl { get; set; }
+        public Uri image_url { get; set; }
 
     }
 }
